@@ -1,4 +1,3 @@
-# OS_ELA/ Team:5
 OS Unix Domain and Internet Domain Chat Applications
 # Chat Application using UNIX & Internet Domain Sockets
 
@@ -65,4 +64,3 @@ This chat system follows a **client-server model**, where:
 - MALLUPEDDI VAMSI KRISHNA
 - NISHANTH ROY KEERTHI
 - KOLLA VIVEK SAGAR
-- MALLIALA SRINIVAS
