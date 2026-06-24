@@ -12,11 +12,36 @@ A dual-mode chat application demonstrating inter-process communication via Unix 
 
 The system provides two independent chat implementations:
 
+```mermaid
+flowchart LR
+    subgraph Unix["Unix Domain Sockets"]
+        A[chat_server.c] <-->|socket file| B[chat_client.c]
+    end
+    
+    subgraph Internet["Internet Domain Sockets"]
+        C[chat_server_int.c] <-->|TCP/IP :port| D[chat_client_int.c]
+    end
+```
+
 **Unix Domain Sockets** (`chat_server.c` / `chat_client.c`) — communicate between processes on the same machine using socket files. Zero network overhead.
 
 **Internet Domain Sockets** (`chat_server_int.c` / `chat_client_int.c`) — communicate between machines over TCP/IP. The server binds to a port and accepts remote client connections.
 
 Both implementations follow a client-server model with bidirectional message exchange.
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+    Client->>Server: socket()
+    Client->>Server: connect()
+    Server->>Client: socket() → bind() → listen() → accept()
+    loop Messaging
+        Client->>Server: send(message)
+        Server->>Client: send(reply)
+    end
+    Client->>Server: close()
+```
 
 ## Key features
 
