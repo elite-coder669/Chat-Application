@@ -1,5 +1,10 @@
 # Chat Application — Unix & Internet Domain Sockets
 
+![C](https://img.shields.io/badge/C-11-blue)
+![POSIX](https://img.shields.io/badge/POSIX-compliant-lightgrey)
+![License](https://img.shields.io/badge/license-View--Only-lightgrey)
+![Status](https://img.shields.io/badge/status-active-brightgreen)
+
 A dual-mode chat application demonstrating inter-process communication via Unix domain sockets (local) and Internet domain sockets (networked).
 
 ## Stack
