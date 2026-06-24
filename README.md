@@ -1,66 +1,45 @@
-OS Unix Domain and Internet Domain Chat Applications
-# Chat Application using UNIX & Internet Domain Sockets
+# Chat Application — Unix & Internet Domain Sockets
 
-This repository contains **two implementations** of a **simple chat application** using **IPC sockets**:
-- **UNIX Domain Sockets (`AF_UNIX`)** → For local inter-process communication.
-- **Internet Domain Sockets (`AF_INET`)** → For communication over LAN/internet.
+A dual-mode chat application demonstrating inter-process communication via Unix domain sockets (local) and Internet domain sockets (networked).
 
-## Overview
-## 1.UNIX Domain Sockets (`AF_UNIX`)
-📍 **Used for:** Local IPC (Inter-Process Communication) on the same system.  
-📍 **How it works:** Uses a **file path** (`/tmp/chat_socket`) for communication.  
+## Stack
 
-### Running the UNIX Domain Chat
-1. **Compile the server and client**
-   ```bash
-   gcc -o chat_server chat_server.c
-   gcc -o chat_client chat_client.c
+- C (POSIX sockets API)
+- Unix Domain Sockets — local IPC
+- Internet Domain Sockets (TCP) — remote communication
 
-This chat system follows a **client-server model**, where:
-- The **server** listens for incoming connections.
-- The **client** connects to the server and exchanges messages.
+## How it works
 
-2. **Run the server in one terminal**
-   ```bash
-   ./chat_server
-   
-3. **Run the client in another terminal**
-   ```bash
-   ./chat_client
+The system provides two independent chat implementations:
 
-4. **Start Chatting**
-- Type a message in the client, and it appears on the server.
-- Type a message in the server, and it appears on the client.
-- Type "exit" to close the chat.
+**Unix Domain Sockets** (`chat_server.c` / `chat_client.c`) — communicate between processes on the same machine using socket files. Zero network overhead.
 
-## 2.Internet Domain Sockets (`AF_INET`)
-📍 **Used for:** Local IPC (Inter-Process Communication) on the same system.  
-📍 **How it works:** Uses a **file path** (`/tmp/chat_socket`) for communication.  
+**Internet Domain Sockets** (`chat_server_int.c` / `chat_client_int.c`) — communicate between machines over TCP/IP. The server binds to a port and accepts remote client connections.
 
-### Running the Internet Domain Chat
-1. **Compile the server and client**
-   ```bash
-   gcc -o chat_server_int chat_server_int.c
-   gcc -o chat_client_int chat_client_int.c
+Both implementations follow a client-server model with bidirectional message exchange.
 
-This chat system follows a **client-server model**, where:
-- The **server** listens for incoming connections.
-- The **client** connects to the server and exchanges messages.
+## Key features
 
-2. **Run the server in one terminal**
-   ```bash
-   ./chat_server_int
-   
-3. **Run the client in another terminal**
-   ```bash
-   ./chat_client_int
+- Two socket domains (Unix + Internet) in a single project
+- POSIX-compliant socket programming
+- Bidirectional client-server communication
+- No external dependencies — pure C standard library + POSIX
 
-4. **Start Chatting**
-- Type a message in the client, and it appears on the server.
-- Type a message in the server, and it appears on the client.
-- Type "exit" to close the chat.
+## What this demonstrates
 
-### Contributors
-- MALLUPEDDI VAMSI KRISHNA
-- NISHANTH ROY KEERTHI
-- KOLLA VIVEK SAGAR
+- Socket programming fundamentals (socket, bind, listen, accept, connect)
+- Unix vs Internet domain socket differences
+- TCP stream communication
+- Low-level systems programming in C
+
+## Build and run
+
+```bash
+# Unix domain
+gcc chat_server.c -o chat_server && ./chat_server
+gcc chat_client.c -o chat_client && ./chat_client
+
+# Internet domain
+gcc chat_server_int.c -o chat_server_int && ./chat_server_int
+gcc chat_client_int.c -o chat_client_int && ./chat_client_int
+```
